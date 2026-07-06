@@ -14,6 +14,13 @@ const Menu = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    const frontendUrl = process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000";
+    window.location.href = `${frontendUrl}/login`;
+  };
+
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
 
@@ -94,6 +101,13 @@ const Menu = () => {
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
         </div>
+        {isProfileDropdownOpen && (
+          <div className="profile-dropdown">
+            <p onClick={handleLogout} style={{ cursor: "pointer" }}>
+              Logout
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
