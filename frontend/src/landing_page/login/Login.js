@@ -24,7 +24,11 @@ function Login() {
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
       const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
-      window.location.href = dashboardUrl;
+      const params = new URLSearchParams({
+        token: response.data.token,
+        user: JSON.stringify(response.data.user),
+      });
+      window.location.href = `${dashboardUrl}?${params.toString()}`;
     } catch (err) {
       const message =
         err.response?.data?.error || "Something went wrong. Please try again.";
